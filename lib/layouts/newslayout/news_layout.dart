@@ -75,15 +75,53 @@
 //     );
 //   }
 // }
+
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/layouts/newslayout/cubit/news_cubit.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-
+    return BlocProvider(
+      create: (context) => NewsCubit()..getBusiness(),
+      child: BlocConsumer<NewsCubit, NewsState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = NewsCubit.get(context);
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                cubit.appBarListScreen[cubit.currentIndex],
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.search,
+                  ),
+                ),
+              ],
+            ),
+            body: ConditionalBuilder(
+              condition: true,
+              builder: (context) => cubit.listScreen[cubit.currentIndex],
+              fallback: (context) =>
+                  const Center(child: CircularProgressIndicator()),
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: cubit.currentIndex,
+              onTap: (index) {
+                cubit.getIndex(index);
+              },
+              items: cubit.itemsList,
+            ),
+          );
+        },
+      ),
     );
   }
 }
