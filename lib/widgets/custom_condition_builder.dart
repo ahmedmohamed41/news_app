@@ -19,7 +19,7 @@ class CustomConditionalBuilder extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => NewsItem(model: list[index]),
         separatorBuilder: (context, index) => const SeparatorBuilder(),
-        itemCount: 10,
+        itemCount: list.length,
       ),
       fallback: (context) => const Center(
         child: CircularProgressIndicator(),

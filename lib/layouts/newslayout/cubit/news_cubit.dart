@@ -14,6 +14,9 @@ class NewsCubit extends Cubit<NewsState> {
 // create object from NewsCubit
   static NewsCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
+  String url = 'v2/top-headlines';
+  String apiKey = 'fe0764dd1dab457d99ba4899405c6bc8';
+  String country = 'us';
 
   void getIndex(int index) {
     currentIndex = index;
@@ -49,10 +52,10 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getBusiness() {
     emit(NewsBussinessLoadingState());
-    DioHelper.getData(url: 'v2/top-headlines', query: {
-      'country': 'us',
+    DioHelper.getData(url: url, query: {
+      'country': country,
       'category': 'business',
-      'apiKey': 'fe0764dd1dab457d99ba4899405c6bc8',
+      'apiKey': apiKey,
     }).then((value) {
       business = value.data['articles'];
 
@@ -64,11 +67,11 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   void getSports() {
-    if (sports.length == 0) {
-      DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'us',
+    if (sports.isEmpty) {
+      DioHelper.getData(url: url, query: {
+        'country': country,
         'category': 'sports',
-        'apiKey': 'fe0764dd1dab457d99ba4899405c6bc8',
+        'apiKey': apiKey,
       }).then((value) {
         sports = value.data['articles'];
         emit(NewsGetDataSportsSuccessState());
@@ -82,11 +85,11 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   void getScience() {
-    if (science.length == 0) {
-      DioHelper.getData(url: 'v2/top-headlines', query: {
-        'country': 'us',
+    if (science.isEmpty) {
+      DioHelper.getData(url: url, query: {
+        'country': country,
         'category': 'science',
-        'apiKey': 'fe0764dd1dab457d99ba4899405c6bc8',
+        'apiKey': apiKey,
       }).then((value) {
         science = value.data['articles'];
         emit(NewsGetDataScienceSuccessState());
@@ -98,4 +101,11 @@ class NewsCubit extends Cubit<NewsState> {
       emit(NewsGetDataScienceSuccessState());
     }
   }
+  bool darkMode = false;
+  void changeAppMode() {
+    darkMode = !darkMode;
+    emit(NewsChngeModeState());
+  }
+  
+
 }

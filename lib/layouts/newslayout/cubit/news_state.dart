@@ -25,6 +25,7 @@ final class NewsSportsErrorState extends NewsState {
 
   NewsSportsErrorState(this.error);
 }
+
 final class NewsGetDataScienceSuccessState extends NewsState {}
 
 final class NewsScienceLoadingState extends NewsState {}
@@ -34,3 +35,5 @@ final class NewsScienceErrorState extends NewsState {
 
   NewsScienceErrorState(this.error);
 }
+
+class NewsChngeModeState extends NewsState {} 

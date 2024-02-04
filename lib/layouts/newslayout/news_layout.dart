@@ -86,42 +86,48 @@ class NewsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewsCubit()..getBusiness(),
-      child: BlocConsumer<NewsCubit, NewsState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = NewsCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                cubit.appBarListScreen[cubit.currentIndex],
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.search,
-                  ),
+    return BlocConsumer<NewsCubit, NewsState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = NewsCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              cubit.appBarListScreen[cubit.currentIndex],
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
                 ),
-              ],
-            ),
-            body: ConditionalBuilder(
-              condition: true,
-              builder: (context) => cubit.listScreen[cubit.currentIndex],
-              fallback: (context) =>
-                  const Center(child: CircularProgressIndicator()),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentIndex,
-              onTap: (index) {
-                cubit.getIndex(index);
-              },
-              items: cubit.itemsList,
-            ),
-          );
-        },
-      ),
+              ),
+              IconButton(
+                onPressed: () {
+                NewsCubit.get(context).changeAppMode();
+                  
+                },
+                icon: const Icon(
+                  Icons.brightness_4,
+                ),
+              ),
+            ],
+          ),
+          body: ConditionalBuilder(
+            condition: true,
+            builder: (context) => cubit.listScreen[cubit.currentIndex],
+            fallback: (context) =>
+                const Center(child: CircularProgressIndicator()),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentIndex,
+            onTap: (index) {
+              cubit.getIndex(index);
+            },
+            items: cubit.itemsList,
+          ),
+        );
+      },
     );
   }
 }
