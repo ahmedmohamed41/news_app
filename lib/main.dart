@@ -11,11 +11,16 @@ import 'package:news_app/shared/network/remote/dio_helper.dart';
 import 'shared/components/constaints.dart';
 
 void main() async {
+// بتاكد ان كل حاجة خلصت وبعد كدا يعمل  يشغل التطبيق
   WidgetsFlutterBinding.ensureInitialized();
+////////////////////////////////////////////////////////
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
+
   await CacheHelper.init();
-  bool? isDark = CacheHelper.getData(key: 'isDark');
+
+  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
+
   runApp(NewsApp(isDark));
 }
 
@@ -27,7 +32,11 @@ class NewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewsCubit()..getBusiness()..changeAppMode(fromShared: isDark),
+      create: (context) => NewsCubit()
+        ..getBusiness()
+        ..getSports()
+        ..getScience()
+        ..changeAppMode(fromShared: isDark),
       child: BlocConsumer<NewsCubit, NewsState>(
         listener: (context, state) {},
         builder: (context, state) {

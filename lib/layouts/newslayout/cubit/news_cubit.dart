@@ -50,6 +50,7 @@ class NewsCubit extends Cubit<NewsState> {
   List<dynamic> business = [];
   List<dynamic> sports = [];
   List<dynamic> science = [];
+  List<dynamic> search = [];
 
   void getBusiness() {
     emit(NewsBussinessLoadingState());
@@ -103,18 +104,35 @@ class NewsCubit extends Cubit<NewsState> {
     }
   }
 
+  void getSearch(String value) {
+    if (value.isEmpty) {
+      const CircularProgressIndicator();
+    } else {
+       DioHelper.getData(url: 'v2/everything', query: {
+      'q': value,
+      'apiKey': apiKey,
+    }).then((value) {
+      search = value.data['articles'];
+      emit(NewsGetDataSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(NewsSearchErrorState(error.toString()));
+    });
+    }
+   
+  }
+
   bool isDark = false;
 
   void changeAppMode({bool? fromShared}) {
     if (fromShared != null) {
       isDark = fromShared;
       emit(NewsChngeModeState());
-    }else{
+    } else {
       isDark = !isDark;
-    CacheHelper.putData(key: 'isDark', value: isDark).then((value) {
-      emit(NewsChngeModeState());
-    });
+      CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+        emit(NewsChngeModeState());
+      });
     }
-    
   }
 }

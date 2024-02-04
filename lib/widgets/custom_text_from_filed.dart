@@ -42,11 +42,14 @@ class CustomTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
           labelText: labelText,
+          labelStyle:  const TextStyle(
+            color: Colors.grey
+          ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
+            borderSide:  const BorderSide(color:Colors.grey),
             borderRadius: BorderRadius.circular(9),
           ),
           border: const OutlineInputBorder(

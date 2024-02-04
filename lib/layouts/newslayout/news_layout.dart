@@ -80,6 +80,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layouts/newslayout/cubit/news_cubit.dart';
+import 'package:news_app/modules/search/search_screen.dart';
+import 'package:news_app/shared/components/constaints.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({super.key});
@@ -97,15 +99,16 @@ class NewsLayout extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  navigateTo(context, SearchScreen());
+                },
                 icon: const Icon(
                   Icons.search,
                 ),
               ),
               IconButton(
                 onPressed: () {
-                NewsCubit.get(context).changeAppMode();
-                  
+                  NewsCubit.get(context).changeAppMode();
                 },
                 icon: const Icon(
                   Icons.brightness_4,
