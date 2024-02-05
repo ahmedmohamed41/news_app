@@ -36,7 +36,11 @@ class SearchScreen extends StatelessWidget {
                     return null;
                   },
                 ),
-               Expanded(child: CustomConditionalBuilder(list: list)),
+                Expanded(
+                    child: CustomConditionalBuilder(
+                  list: list,
+                  isSearch: true,
+                )),
               ],
             ),
           ),

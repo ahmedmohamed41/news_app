@@ -9,7 +9,6 @@ import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 import 'shared/components/constaints.dart';
-
 void main() async {
 // بتاكد ان كل حاجة خلصت وبعد كدا يعمل  يشغل التطبيق
   WidgetsFlutterBinding.ensureInitialized();
